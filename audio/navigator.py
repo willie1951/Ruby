@@ -85,34 +85,6 @@ class Navigator:
 		self.myworld.set_state("CURRENT_ANCHOR", 10)
 		last_location = {"name": "Recycle Bin", "context": 10}
 	
-		user_name = getattr(self.prefs, "USER_NAME", "").strip()
-		if user_name:		
-			self.mouth.speak(f"Welcome back {user_name}.") 
-			self.mouth.wait_until_silent() 
-			
-		else:
-			print("[SYSTEM]: Identity is empty in preferences. Initiating Vocal Handshake.") 
-			#"Hello. I am {self.prefs.THIS_APPLICATION}. I don't believe we've met. 
-			self.mouth.speak(f"What is your name?")
-			self.mouth.wait_until_silent()
-
-			captured_name = self.mouth.get_intent() 
-			
-			if captured_name: 
-				# Confirmation Step
-				self.mouth.speak(f"I heard {captured_name}. Is that correct?")
-				self.mouth.wait_until_silent()
-				confirmation = self.mouth.get_intent()
-				
-				if "yes" in confirmation: 
-					self.prefs.user_name = captured_name 
-					# 3. Synchronize Authority
-					self.myworld.update_prefs("USER_NAME", user_name) 
-					
-				else:
-					self.mouth.speak("Understood. I will remain anonymous for now.")
-					self.mouth.wait_until_silent()
-	
 	def maximize_view(self, app_class="OpusApp"):
 		"""
 		Waits for the window to appear, then forces it to a maximized state.
